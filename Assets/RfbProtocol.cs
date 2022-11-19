@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Sockets;
+using System.IO;
 using UnityEngine;
 
 public class RfbProtocol
@@ -178,7 +179,7 @@ public class RfbProtocol
 	public void WriteProtocolVersion()
 	{
 		// We will use which ever version the server understands, be it 3.3, 3.7, or 3.8.
-		Debug.Assert(verMinor == 3 || verMinor == 7 || verMinor == 8, "Wrong Protocol Version!",
+		Debug.AssertFormat(verMinor == 3 || verMinor == 7 || verMinor == 8, "Wrong Protocol Version!",
 					 string.Format("Protocol Version should be 3.3, 3.7, or 3.8 but is {0}.{1}", verMajor.ToString(), verMinor.ToString()));
 
 		writer.Write(GetBytes(string.Format("RFB 003.00{0}\n", verMinor.ToString())));
@@ -228,7 +229,7 @@ public class RfbProtocol
 	/// <param name="type">The type of Authentication to be used, 1 (None) or 2 (VNC Authentication).</param>
 	public void WriteSecurityType(byte type)
 	{
-		Debug.Assert(type >= 1, "Wrong Security Type", "The Security Type must be one that requires authentication.");
+		Debug.AssertFormat(type >= 1, "Wrong Security Type", "The Security Type must be one that requires authentication.");
 
 		// Only bother writing this byte if the version of the server is 3.7
 		if (verMinor >= 7)
