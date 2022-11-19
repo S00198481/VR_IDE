@@ -64,6 +64,8 @@ public class ConnectSetup : MonoBehaviour
     }
 }
 
+public delegate void VncUpdateHandler(object sender, VncEventArgs e);
+
 public class VncClient
 {
 	private RfbProtocol rfb;            // The protocol object handling all communication with server.
