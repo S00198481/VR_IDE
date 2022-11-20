@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Formats.Bmp;
 using UnityEngine;
 
 public sealed class CopyRectRectangle : EncodedRectangle
@@ -24,7 +26,7 @@ public sealed class CopyRectRectangle : EncodedRectangle
 		source.Y = (int)rfb.ReadUInt16();
 	}
 
-	public unsafe override void Draw(byte[] desktop)
+	public unsafe void Draw(BmpFormat desktop)
 	{
 		// Given a source area, copy this region to the point specified by destination
 		BitmapData bmpd = desktop.LockBits(new Rectangle(new Point(0, 0), desktop.Size),

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
 using UnityEngine;
 
 public sealed class ZrleRectangle : EncodedRectangle

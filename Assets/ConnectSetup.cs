@@ -195,7 +195,7 @@ public class VncClient
 				throw new VncProtocolException("Connection Failed. The server rejected the connection for the following reason: " + rfb.ReadSecurityFailureReason());
 			}
 			securityType = GetSupportedSecurityType(types);
-			Debug.Assert(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
+			UnityEngine.Debug.AssertFormat(securityType > 0, "Unknown Security Type(s)", "The server sent one or more unknown Security Types.");
 
 			rfb.WriteSecurityType(securityType);
 
@@ -372,7 +372,7 @@ public class VncClient
 	{
 		// Start getting updates on background thread.
 		worker = new Thread(GetRfbUpdates);
-		// Bug Fix (Grégoire Pailler) for clipboard and threading
+		// Bug Fix (Grï¿½goire Pailler) for clipboard and threading
 		worker.SetApartmentState(ApartmentState.STA);
 		worker.IsBackground = true;
 		done = new ManualResetEvent(false);

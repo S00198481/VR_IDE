@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Collections.Generic;
-using System.Drawing;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
+using SixLabors.ImageSharp.Formats.Bmp;
 using UnityEngine;
 
 public abstract class EncodedRectangle : IDesktopUpdater
@@ -65,11 +67,11 @@ public abstract class EncodedRectangle : IDesktopUpdater
 	/// After calling Decode() an EncodedRectangle can be drawn to a Bitmap, which is the local representation of the remote desktop.
 	/// </summary>
 	/// <param name="desktop">The image the represents the remote desktop. NOTE: this image will be altered.</param>
-	public unsafe virtual void Draw(byte[] desktop)
+	public unsafe virtual void Draw(BmpFormat desktop)
 	{
 		// Lock the bitmap's scan-lines in RAM so we can iterate over them using pointers and update the area
 		// defined in rectangle.
-		BitmapData bmpd = desktop.LockBits(new Rectangle(new Point(0, 0), desktop.Size), ImageLockMode.ReadWrite, desktop.PixelFormat);
+		BmpMetadata bmpd = desktop.LockBits(new Rectangle(new Point(0, 0), desktop.Size), ImageLockMode.ReadWrite, desktop.PixelFormat);
 
 		try
 		{
