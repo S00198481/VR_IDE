@@ -21,7 +21,7 @@ public class BrowserView : MonoBehaviour
     public Button ForwardButton;
     public TMP_InputField UrlInputField;
     public TMP_Text ProgressText;
-    public Transform GazePointer;
+    public Transform InputOVR;
     public RawImage RawImage;
     private UserAgent _currentUserAgent = UserAgent.mobile;
     private OVROverlay _overlay;
@@ -82,7 +82,7 @@ public class BrowserView : MonoBehaviour
     // CHANGE PER YOUR INPUT MODULE SPECIFICS
     private void OnClick()
     {   
-        AddTap(GazePointer.transform.position);       
+        AddTap(InputOVR.transform.position);       
     }
 
     // Show your keyboard here
