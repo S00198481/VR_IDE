@@ -398,6 +398,10 @@ public class BrowserView : MonoBehaviour
         /// <returns>The start function</returns>
         private IEnumerator Start()
         {
+
+#if UNITY_EDITOR
+            yield break;
+#endif
             // Wait for surface to be available.
             while (_overlay.externalSurfaceObject == IntPtr.Zero || _ajc == null)
             {
@@ -424,6 +428,9 @@ public class BrowserView : MonoBehaviour
         /// </summary>
         public void InitializeAndroidPlugin()
         {
+#if UNITY_EDITOR
+            return;
+#endif
             // testing new values 
             _surfaceWidth = _overlay.externalSurfaceWidth; //(int) _rawImage.rectTransform.rect.width;
             _surfaceHeight = _overlay.externalSurfaceHeight; //(int) (_rawImage.rectTransform.rect.height);
