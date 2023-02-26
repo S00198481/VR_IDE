@@ -4,6 +4,9 @@
     <!-- Request the headset DoF mode -->
     <application
         android:allowBackup="false">
+		<uses-feature android:name="android.hardware.vr.headtracking" android:required="true" android:version="1"/>
+        <uses-feature android:name="oculus.software.handtracking" android:required="false"/>
+        <uses-permission android:name="com.oculus.permission.HAND_TRACKING"/>
         <activity
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:configChanges="locale|fontScale|keyboard|keyboardHidden|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
