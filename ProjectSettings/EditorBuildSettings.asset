@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Oculus/VR/Scenes/TrackedKeyboard.unity
     guid: eb540761693b1de438733a3581e21f58
+  - enabled: 0
+    path: Assets/Oculus/Interaction/Samples/Scenes/Examples/RayExamples.unity
+    guid: 1b2d3f90c0f50b94cb910c66c773d00d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
       type: 2}
