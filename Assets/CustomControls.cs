@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CustomControls : MonoBehaviour
@@ -7,9 +8,14 @@ public class CustomControls : MonoBehaviour
     public OVRTrackedKeyboard trackedKeyboard;
     public InputField StartingFocusField;
 
-    void OnEnable()
+
+
+    private void OnEnable()
     {
-        StartCoroutine(SelectInputField());
+        EventSystem.current.SetSelectedGameObject(StartingFocusField.gameObject, null);
+        StartingFocusField.OnPointerClick(new PointerEventData(EventSystem.current));
+        StartingFocusField.ActivateInputField();
+        //StartCoroutine(SelectInputField());
     }
 
     IEnumerator SelectInputField()
@@ -23,13 +29,27 @@ public class CustomControls : MonoBehaviour
         trackedKeyboard.TrackingEnabled = true;
         trackedKeyboard.ConnectionRequired = true;
         trackedKeyboard.RemoteKeyboard = true;
-        StartingFocusField.lineType = InputField.LineType.MultiLineNewline;
-        StartingFocusField.Select();
+        EventSystem.current.SetSelectedGameObject(StartingFocusField.gameObject, null);
+        StartingFocusField.OnPointerClick(new PointerEventData(EventSystem.current));
         StartingFocusField.ActivateInputField();
+        //StartingFocusField.lineType = InputField.LineType.MultiLineNewline;
+        //StartingFocusField.Select();
+        //StartingFocusField.ActivateInputField();
     }
 
-    void Update()
+    void OnGUI()
     {
+        string key = "";
+        bool keydown = false;
+        Event e = Event.current;
+        if (e.type.Equals(EventType.KeyDown) && !keydown)
+        {
+            keydown = true;
+            key = e.keyCode.ToString();
+            StartingFocusField.text = StartingFocusField.text + key;
+        }
 
+        if (e.type.Equals(EventType.KeyUp))
+            keydown = false;
     }
 }
