@@ -518,7 +518,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 65284393}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f1a9a1d119a5944aacfb87d1ec283a2, type: 3}
   m_Name: 
@@ -1037,6 +1037,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OVRHands
+      objectReference: {fileID: 0}
+    - target: {fileID: 65207973030035947, guid: ea16c3c8c1688234fa81a4f39339bf1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2258758052515309563, guid: ea16c3c8c1688234fa81a4f39339bf1b,
         type: 3}
@@ -3919,7 +3924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1022611095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4323,7 +4328,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1120100366}
   m_TextComponent: {fileID: 1833444742}
   m_Placeholder: {fileID: 238347271}
@@ -6534,7 +6539,7 @@ PrefabInstance:
     - target: {fileID: 1726274527906839442, guid: e9c36ab6506ab5b4bb79e26e150c8b4c,
         type: 3}
       propertyPath: keyboardQueryFlags
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5671431997716857503, guid: e9c36ab6506ab5b4bb79e26e150c8b4c,
         type: 3}
