@@ -10,7 +10,6 @@ public class CustomControls : MonoBehaviour
     public OVRTrackedKeyboard trackedKeyboard;
     public InputField StartingFocusField;
     public OVRInput.RawButton keyboardButton;
-    bool isCapsLockOn = false; // Initialize caps lock state
 
 
     private void OnEnable()
@@ -60,19 +59,10 @@ public class CustomControls : MonoBehaviour
 
     void OnGUI()
     {
-        //string key = "";
-        bool keydown = false;
         Event e = Event.current;
-        if (e.type.Equals(EventType.KeyDown) && !keydown)
+        if (e.type.Equals(EventType.KeyDown))
         {
-            keydown = true;
-
-            if (e.keyCode == KeyCode.CapsLock)
-            {
-                // Toggle caps lock state
-                isCapsLockOn = !isCapsLockOn;
-            }
-            else if (e.keyCode == KeyCode.Backspace)
+            if (e.keyCode == KeyCode.Backspace)
             {
                 if (StartingFocusField.text.Length > 0)
                 {
@@ -88,7 +78,7 @@ public class CustomControls : MonoBehaviour
             else
             {
                 // Get the output of the key pressed
-                string output = GetKeyOutput(e, isCapsLockOn);
+                string output = GetKeyOutput(e);
 
                 if (output != "")
                 {
@@ -100,21 +90,21 @@ public class CustomControls : MonoBehaviour
         //StartingFocusField.text = StartingFocusField.text + GetKeyOutput(Event.current);
         //key = e.keyCode.ToString();
         //StartingFocusField.text = StartingFocusField.text + key;
-
-        if (e.type.Equals(EventType.KeyUp))
-            keydown = false;
     }
 
-    string GetKeyOutput(Event e, bool isCapsLockOn)
+    string GetKeyOutput(Event e)
     {
         // Check if Shift key or caps lock is held down
-        bool isShiftPressed = (Event.current.modifiers & EventModifiers.Shift) != 0 || isCapsLockOn;
+        bool isShiftPressed = (Event.current.modifiers & EventModifiers.Shift) != 0;
+        //bool isCapsLockPressed = isCapsLockOn && !isShiftPressed;
+        bool isCapsLockPressed = e.capsLock && !isShiftPressed;
+        bool isUpperCase = isShiftPressed ^ isCapsLockPressed;
 
         // Check if KeyCode is alphabetical
         if (e.type == EventType.KeyDown && e.keyCode >= KeyCode.A && e.keyCode <= KeyCode.Z)
         {
             // Convert KeyCode to char
-            char c = (char)((int)e.keyCode + (isShiftPressed ? 'A' - 'a' : 0));
+            char c = (char)((int)e.keyCode + (isUpperCase ? 'A' - 'a' : 0));
             return c.ToString();
         }
 
