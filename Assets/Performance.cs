@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using OVRSimpleJSON;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +25,7 @@ public class Performance : MonoBehaviour
     public double accuracy;
 
     public string apiEndpoint;
-    public delegate void ApiResponseCallback(bool success);
+    public delegate void ApiResponseCallback(bool success, string msg);
 
     // Start is called before the first frame update
     void Start()
@@ -99,26 +101,30 @@ public class Performance : MonoBehaviour
 
     public void SubmitText()
     {
-        testResult test = new testResult();
+        //testResult test = new testResult
+        //{
+        //    sampleText = readText.text,
+        //    userText = inputText.text,
+        //    accuracy = accuracy.ToString("0.00"),
+        //    timeTaken = timer.currentTime.ToString("0.00")
+        //};
+        testResult test = new testResult(readText.text, inputText.text, accuracy.ToString("0.00"), timer.currentTime.ToString("0.00"));
 
-        test.sampleText = readText.text;
-        test.userText   = inputText.text;
-        test.accuracy = accuracy.ToString("0.00");
-        //test.timeTaken  = 
-
-        string jsonData =  JsonUtility.ToJson(test);
+        //string jsonData =  JsonUtility.ToJson(test);
+        string jsonData = test.JSONString();
         StartCoroutine(PostData(jsonData, RequestCallback));
     }
 
-    void RequestCallback(bool success)
+    void RequestCallback(bool success, string msg)
     {
         if (success)
         {
             uploadResultText.text = "Test Attempt Recorded Successfully!";
+            //uploadResultText.text = msg;
         }
         else
         {
-            uploadResultText.text = "Test Attempt Upload Failed!";
+            uploadResultText.text = "Fail - "+msg;
         }
     }
 
@@ -140,20 +146,42 @@ public class Performance : MonoBehaviour
         // Check for errors
         if (request.result != UnityWebRequest.Result.Success)
         {
-            callback(false); // Call the callback with a failure flag
+            callback(false, (request.responseCode.ToString()+' '+request.result.ToString()+' '+request.error)); // Call the callback with a failure flag
         }
         else
         {
-            callback(true); // Call the callback with a success flag
+            callback(true, jsonData); // Call the callback with a success flag
         }
     }
 
-    [Serializable]
-    private class testResult
+    public class testResult
     {
         public string sampleText { get; set; }
         public string userText { get; set; }
         public string timeTaken { get; set; }
         public string accuracy { get; set; }
+
+        public testResult()
+        {
+            this.sampleText = "val 1";
+            this.userText = "val 2";
+            this.timeTaken = "val 3";
+            this.accuracy = "val 4";
+        }
+
+        public testResult(string sampleText, string usertext, string timeTaken, string accuracy)
+        {
+            this.sampleText = sampleText;
+            this.userText  = usertext;
+            this.timeTaken = timeTaken;
+            this.accuracy = accuracy;
+        }
+
+        public string JSONString()
+        {
+            //return JsonUtility.ToJson(this);
+            return JsonConvert.SerializeObject(this);
+            //return string.Format("{\r\n  \"sampleText\": {0},\r\n  \"userText\": {1},\r\n  \"timeTaken\": {2},\r\n  \"accuracy\": {3}\r\n}", sampleText, userText, timeTaken, accuracy);
+        }
     }
 }

@@ -6209,8 +6209,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1700123201}
-        m_TargetAssemblyTypeName: Timer, Assembly-CSharp
+      - m_Target: {fileID: 1700123203}
+        m_TargetAssemblyTypeName: Performance, Assembly-CSharp
         m_MethodName: ToggleTest
         m_Mode: 1
         m_Arguments:
@@ -6529,11 +6529,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   readText: {fileID: 684494584}
   inputText: {fileID: 1120100365}
-  timer: {fileID: 0}
+  timer: {fileID: 1700123201}
   accuracyText: {fileID: 1806882567}
-  uploadResultText: {fileID: 0}
+  uploadResultText: {fileID: 1094731589}
   accuracy: 0
-  apiEndpoint: https://hw1vst31bb.execute-api.eu-west-1.amazonaws.com/prod
+  apiEndpoint: https://hw1vst31bb.execute-api.eu-west-1.amazonaws.com/prod/testupload
 --- !u!1 &1710119733
 GameObject:
   m_ObjectHideFlags: 0
