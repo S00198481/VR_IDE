@@ -53,13 +53,26 @@ public class Performance : MonoBehaviour
             string target = inputText.text;
             string source = readText.text.Substring(0, target.Length);
 
-            if ((source == null) || (target == null)) accuracy = 0.0f;
-            if ((source.Length == 0) || (target.Length == 0)) accuracy = 0.0f;
-            if (source == target) accuracy = 1.0f;
+            if ((source == null) || (target == null)) accuracy = 0.0;
+            if ((source.Length == 0) || (target.Length == 0)) accuracy = 0.0;
+            
 
             int stepsToSame = ComputeLevenshteinDistance(source, target);
             accuracy = (1.0 - ((double)stepsToSame / (double)Math.Max(source.Length, target.Length))) * 100;
+            if (source == target)
+            {
+                accuracy = 100.0;
+            }
             accuracyText.text = "Typing Accuracy: " + accuracy.ToString("0.00") + "%";
+            
+            //if (accuracy.ToString("0.00") == "0.00")
+            //{
+            //    accuracyText.text = "Typing Accuracy: " + "100%";
+            //}
+            //else
+            //{
+            //    accuracyText.text = "Typing Accuracy: " + accuracy.ToString("0.00") + "%";
+            //}  
         }
     }
 
@@ -120,12 +133,18 @@ public class Performance : MonoBehaviour
         if (success)
         {
             uploadResultText.text = "Test Attempt Recorded Successfully!";
-            //uploadResultText.text = msg;
+            StartCoroutine(WaitAndClear());
         }
         else
         {
             uploadResultText.text = "Fail - "+msg;
         }
+    }
+
+    IEnumerator WaitAndClear()
+    {
+        yield return new WaitForSeconds(5);
+        uploadResultText.text = "";
     }
 
     IEnumerator PostData(string jsonData, ApiResponseCallback callback)
